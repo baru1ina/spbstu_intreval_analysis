@@ -40,33 +40,40 @@ def Determinant(A):
     return res
 
 
-a = 4
-eps = 0
+a = 3
+eps_start = 0
 step = 0.01
-step_ = 0.0001
 print("STEP = ", step)
 
-A = CreateMatrix(eps)
+A = CreateMatrix(eps_start)
 interval = Determinant(A)
 
 iter_count = 0
+count_enc = 0
+count_dec = 0
 
 while 0 not in interval:
+    count_enc += 1
     print("\ndeterminant = ", interval)
-    eps += step
+    eps = eps_start + step*count_enc
     A = CreateMatrix(eps)
     interval = Determinant(A)
     iter_count += 1
 
+eps_start = eps
+step = 0.0001
+print("STEP = ", step)
+
 while 0 in interval:
+    count_dec += 1
     print("\ndeterminant = ", interval)
-    eps -= step_
+    eps = eps_start - step*count_dec
     A = CreateMatrix(eps)
     interval = Determinant(A)
     iter_count += 1
 
 print("iter_count", iter_count)
-eps_min = round(eps+step_, a)
+eps_min = round(eps+step, a)
 A = CreateMatrix(eps_min)
 interval = Determinant(A)
 print("\nMinimal eps = ", eps_min)
@@ -82,19 +89,12 @@ print_table(output, headers=[])
 
 print(f"\ndet(A) for minimal eps = {interval}")
 
-# print(A[0][0])
-# print(A[0][1])
-# print(A[1][0])
-# print(A[1][1])
-
-step = 0.001
-
 def CutInt(A):
     if intersection(A[0][0], A[1][0]):
         if intersection(A[1][1], A[0][1]):
             res = [
-                [intersection(A[0][0], A[1][0]), intersection(A[1][1], A[0][1])],
-                [intersection(A[0][0], A[1][0]), intersection(A[1][1], A[0][1])]
+                [str(intersection(A[0][0], A[1][0])), str(intersection(A[1][1], A[0][1]))],
+                [str(intersection(A[0][0], A[1][0])), str(intersection(A[1][1], A[0][1]))]
             ]
             return res
     if intersection(A[0][0], A[0][1]):
@@ -106,43 +106,13 @@ def CutInt(A):
             return res
     return None
 
-def CalcMatrix(A):
-    s1 = round(A[0][0].inf, a)
-    e1 = round(A[0][0].sup, a)
-    while e1 >= s1:
-        s4 = round(A[1][1].inf, a)
-        e4 = round(A[1][1].sup, a)
-        while e4 >= s4:
-            s2 = round(A[0][1].inf, a)
-            e2 = round(A[0][1].sup, a)
-            while s2 <= e2:
-                s3 = round(A[1][0].inf, a)
-                e3 = round(A[1][0].sup, a)
-                while s3 <= e3:
-                    if (round(e1*e4, 3) - round(s2*s3, 3)) == 0:
-                        matrix = [
-                            [e1, s2],
-                            [s3, e4]
-                        ]
-                        return matrix
-                    print("e1 s2 s3 e4", e1, s2, s3, e4)
-                    s3 = s3 + step
-                    s3 = round(s3, 3)
-                print("e1 s2 s3 e4", e1, s2, s3, e4)
-                s2 = s2 + step
-                s2 = round(s2, 3)
-            print("e1 s2 s3 e4", e1, s2, s3, e4)
-            e4 = e4 - step
-            e4 = round(e4, 3)
-        print("e1 s2 s3 e4", e1, s2, s3, e4)
-        e1 = e1 - step
-        e1 = round(e1, 3)
-    return []
-
 
 new_A = CutInt(A)
 if new_A:
-    print("\nВырожденная точечная матрица А': ")
-    print_table(CalcMatrix(new_A), headers=[])
+    print("\nПересечение не пусто => вырожденная точечная матрица А' существует: ")
+    print_table(new_A, headers=[])
+else:
+    print("\nПересечение пусто => вырожденной точечной матрицы А' для найденного значения epsilon не существует")
+
 
 
