@@ -206,7 +206,7 @@
 \end{itemize}
 \vspace{0.5cm}
 \\\textbf{Алгоритм для поиска максимального значения функционала:}\\\\
-Для поиска максимума функционалов будем использовать метод золотого сечения для интервала, где функционал унимодален, согласно следующей блок-схеме:\\
+Для поиска максимума функционалов будем использовать метод золотого сечения для интервала, где функционал унимодален\\
 \textbf{Вход:} 
 \\$f(x)$-унимодальная на $[a_0,b_0]$ функция; 
 \\$a_0$, $b_0$ - крайние точки интервала неопределенности;
@@ -313,8 +313,53 @@ $\hat{a}$&$0.3436\pm0.0006$&0.1351\\
 $\hat{t}$&$-1.0144\pm0.0006$&0.7746\\
 \hline
 \end{tabular}
-\end{center}
+\end{center}\\
+\\Продемонстрируем результаты вычислений на графиках. Ниже не приведены графики для функционала $ \text{Ji} (a, \text{mode} \mathbf{X}, \text{mode} \mathbf{Y})$ (7), так как вычисление его значений в каждой из точек выбранного в качестве начального приближения интервала очень долгий и ресурсозатратный процесс.
+\newpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Jaccadrd-a-.png}
+    \caption{Коеффициент Жаккара для a, функционал (6)}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Jaccadrd-t-.png}
+    \caption{Коеффициент Жаккара для t, функционал (6)}
+\end{figure}
 
+\newpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Jaccadrd-a-med_K.png}
+    \caption{Коеффициент Жаккара для a, функционал (8)}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Jaccadrd-t-med_K.png}
+    \caption{Коеффициент Жаккара для t, функционал (8}
+\end{figure}
+\newpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Jaccadrd-a-med_p.png}
+    \caption{Коеффициент Жаккара для a, функционал (9)}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Jaccadrd-t-med_p.png}
+    \caption{Коеффициент Жаккара для t, функционал (9)}
+\end{figure}
+\newpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Jaccadrd-all-in-one-A.png}
+    \caption{Коеффициент Жаккара для a, все три функционала на одном графике)}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Jaccadrd-all-in-one-T.png}
+    \caption{Коеффициент Жаккара для t, все три функционала на одном графике}
+\end{figure}
 
 \section{Выводы}
 В ходе выполнения лабораторной работы познакомились со схемой получения интервальных оценок для констант. Для этого были использованы 4 разных функционала ((6), (7), (8), (9)), в основе которых лежит вычисление коэффициента Жаккара, но от разных интервальных множеств.\\
