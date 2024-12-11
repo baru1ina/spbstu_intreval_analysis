@@ -177,7 +177,14 @@ $$V = Code/16384 − 0.5$$\\
     \includegraphics[width=0.25\linewidth]{y_int-y_ext.png}
     \caption{Внешние и внутренние оценки для каждого файла}
 \end{figure}\\
-\textbf{1. Построение допускового множества}\\
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.45\linewidth]{visual_inners_externals_small.png}
+        \includegraphics[width=0.45\linewidth]{visual_inners_externals_big.png}
+    \caption{Внешние и внутренние оценки для каждого файла}
+\end{figure}\\
+\newpage
+\hspace{-0.5cm}\textbf{1. Построение допускового множества}\\
 Выберем для демонстрации работы алгоритма канал и ячейку - channel = 1, cell = 1023
 \begin{figure}[h!]
     \centering
@@ -185,12 +192,13 @@ $$V = Code/16384 − 0.5$$\\
     \caption{Допусковое множество до раширения внутренних оценок до внешних}
 \end{figure}\\
 \hspace{-0.5cm}Видим, что на графике отображается только множество внешних оценок. Это говорит о том, что ИСЛАУ для неизвестных коэффициентов регресии несовместна. Для того, чтобы получить множество внутренних оценок, заменим строки системы с отрицательной невязкой (неомера уравнений будут номерами образующих распознающего функционала с отрицательным значением Tol'a)
-\newpage
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.53\linewidth]{image.png}
     \caption{Результаты вычиселений для пустого допускового множества}
 \end{figure}\\
+\newpage
 \hspace{-0.5cm}Расширяем внутренние оценки до внешних:
 \begin{figure}[h!]
     \centering
