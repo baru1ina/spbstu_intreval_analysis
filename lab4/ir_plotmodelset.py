@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import linprog
+# from data_corr import plot_tol_sys
+
 
 
 def ir_plotmodelset(irproblems, xlimits=None):
@@ -50,7 +52,7 @@ def ir_plotmodelset(irproblems, xlimits=None):
     plt.xlabel('X')
     plt.ylabel('Y')
     plt.title('IR Model Set Plot')
-    plt.show()
+    # plt.show()
 
 
 def ir_predict(irproblem, Xp):

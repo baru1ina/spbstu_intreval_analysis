@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+# from matplotlib.patches import Ellipse
 import numpy as np
 np.float_ = np.float64
 import intvalpy as ip
@@ -55,7 +56,7 @@ def get_estimations(ch, cells, data):
     return ys_int, ys_ext
 
 
-def regression_coeff(Ysint, Ysout, Xi, graphics=False):
+def regression_coeff(Ysint, Ysout, Xi, ys_int, ys_ext, Xs_lvls, graphics=False):
     y_out = ip.mid(Ysout)*(1/16384) - 0.5
     epsilon_out = ip.rad(Ysout)*(1/16384)
 
@@ -63,7 +64,7 @@ def regression_coeff(Ysint, Ysout, Xi, graphics=False):
 
     b_out = ir_outer(irp_DRSout)
 
-    b_int, ind_to_out = data_corr_naive(Ysint, Ysout, ip.asinterval(Xi), graphics)
+    b_int, ind_to_out = data_corr_naive(Ysint, Ysout, ip.asinterval(Xi),  ys_int, ys_ext, Xs_lvls,  graphics)
 
     non_comp_count = len(ind_to_out)
 
@@ -86,12 +87,17 @@ def calibrate(ch, cells, graphics=False):
     print(Fore.MAGENTA + f"\n\nCHANNEL: {ch}, CELL: {cells}\n\n")
 
     ys_int, ys_ext = get_estimations(ch, cells, rawData_instance)
+
     Xs_lvls_ = rawData_instance.lvls
 
     Xs_lvls_ind = np.argsort(Xs_lvls_)
     Xs_lvls = sorted(Xs_lvls_)
     ys_int = ys_int[Xs_lvls_ind]
     ys_ext = ys_ext[Xs_lvls_ind]
+
+    print("\nys_int: ", ys_int * (1 / 16384) - 0.5)
+    print("\nys_ext: ", ys_ext * (1 / 16384) - 0.5)
+    print("\nXs_lvls: ", Xs_lvls)
 
     if graphics:
         print_intervals(ys_int, ys_ext, Xs_lvls)
@@ -100,7 +106,8 @@ def calibrate(ch, cells, graphics=False):
     Ysout = ip.Interval(ys_ext)
     Xi = np.vstack(([1] * len(Xs_lvls), Xs_lvls)).T
 
-    b_int, b_out, non_comp_count = regression_coeff(Ysint, Ysout, Xi, graphics)
+    b_int, b_out, non_comp_count = regression_coeff(Ysint, Ysout, Xi, ys_int * (1 / 16384) - 0.5,
+                                                    ys_ext * (1 / 16384) - 0.5, Xs_lvls, graphics)
 
     if b_int[1] == 0:
         print(Fore.RED + f"\n\nb_int: ", b_int[0])
