@@ -56,7 +56,6 @@ def ir_plotmodelset(irproblems, xlimits=None):
 
 
 def ir_predict(irproblem, Xp):
-
     X = np.array(irproblem['X'])
     y = np.array(irproblem['y'])
     epsilon = irproblem['epsilon']

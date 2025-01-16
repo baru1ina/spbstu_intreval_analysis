@@ -38,11 +38,6 @@ def print_intervals(ys_int, ys_ext, Xs_lvls):
         gen_ye2(ys_ext_to_plot)
     ]
 
-    # ellipse = Ellipse(((Xs_lvls[2]+Xs_lvls[3])/2, (ys_int_to_plot[2]+ys_int_to_plot[3])/2),
-    #                   0.1, 1700, color='r', fill=False)
-    # ax = plt.gca()
-    # ax.add_patch(ellipse)
-
     plt.errorbar(Xs_lvls, ys_int_to_plot, yerr=yerr_int, marker=".", linestyle='none',
                  ecolor='k', elinewidth=0.8, capsize=4, capthick=1)
     plt.errorbar(Xs_lvls, ys_ext_to_plot, yerr=yerr_ext, linestyle='none',
@@ -51,6 +46,8 @@ def print_intervals(ys_int, ys_ext, Xs_lvls):
 
 
 def get_estimations(ch, cells, data):
+    # ys_int = calibration_data_all_bins(ch, cells, "Int", data, True)
+    # ys_ext = calibration_data_all_bins(ch, cells, "Ext", data, True)
     ys_int = calibration_data_all_bins(ch, cells, "Int", data)
     ys_ext = calibration_data_all_bins(ch, cells, "Ext", data)
     return ys_int, ys_ext
@@ -124,9 +121,9 @@ def calibrate(ch, cells, graphics=False):
     print(Fore.BLUE + f"\n\nПРОВЕРКА ПОЛУЧЕННЫХ КОЭФФИЦИЕНТОВ:")
 
     for ind in range(len(Xs_lvls)):
-        x1, x2 = calc_lvl(b_int, b_int, Ysint[ind] * (1 / 16384) - 0.5, Ysout[ind] * (1 / 16384) - 0.5)
+        x1, x2 = calc_lvl(b_int, b_out, Ysint[ind] * (1 / 16384) - 0.5, Ysout[ind] * (1 / 16384) - 0.5)
         print(Fore.BLUE + "\nXi: ", Xi[ind][1])
-        if Xi[ind][1] in x1:
+        if Xi[ind][1] in x1 or Xi[ind][1] in x2:
             print("\nx1: ", Fore.GREEN + f"{x1}")
             print("\nx2: ", Fore.GREEN + f"{x2}")
         else:
@@ -138,24 +135,7 @@ def calibrate(ch, cells, graphics=False):
 
 if __name__ == "__main__":
     b_int, b_out = calibrate(1, 1023, True)
-    # Betas_int = []
-    # Betas_out = []
-    #
-    # for channel in range(8):
-    #     Betas_int_for_cell = []
-    #     Betas_out_for_cell = []
-    #     for cell in range(1024):
-    #         b_int, b_out = calibrate(channel, cell, False)
-    #         Betas_int_for_cell.append(b_int[0])
-    #         Betas_out_for_cell.append(b_out[0])
-    #     Betas_int.append(Betas_int_for_cell)
-    #     Betas_out.append(Betas_out_for_cell)
-    #
-    # with open('source_27_08_2024/Betas_int.pkl', 'wb') as f:
-    #     pickle.dump(Betas_int, f)
-    #
-    # with open('source_27_08_2024/Betas_out.pkl', 'wb') as f:
-    #     pickle.dump(Betas_out, f)
+
 
 
 

@@ -51,8 +51,10 @@ def print_intervals(ys_int, ys_ext, Xs_lvls):
 
 def plot_tol_sys(Xi, Ysint, Ysout, fname, title="Допусковое множество"):
     vert1 = ip.IntLinIncR2(Xi, Ysint, consistency='tol', show=False)
+    print(vert1)
 
     vert = ip.IntLinIncR2(Xi, Ysout, consistency='tol', show=False)
+    print(vert)
 
     for ortant in range(len(vert)):
         if len(vert[ortant]) != 0:
